@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Moteur de recherche mathématiques</title>
+</head>
+
+<body>
+    {% block body %}
+    <h1>Résultats de la recherche :</h1>
+    <ol>
+        {% for result in results %}
+        <li class="result">
+            <a href="{{ result[0] }}">{{ result[1] }}</a>
+            <img src="{{ result[3] }}" alt="Image de {{ result[1] }}">
+            <p>{{ result[0] }}</p>
+        </li>
+        {% endfor %}
+    </ol>
+    {% endblock %}
+
+</body>
+
+</html>

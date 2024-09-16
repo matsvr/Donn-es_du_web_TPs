@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Moteur de recherche mathématiques</title>
+    <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  // https://stackoverflow.com/a/5926782
+  let typingTimer;                //timer identifier
+  let doneTypingInterval = 300;  //time in ms (0.3 second)
+  let myInput = document.getElementById('q');
+  var autocompleteUrl = 'https://wiki.jachiet.com/suggest?content=wikipedia_fr_mathematics_maxi_2024-03&userlang=en'
+  var last = '';
+
+  //on keyup, start the countdown
+  myInput.addEventListener('keyup', () => {
+      clearTimeout(typingTimer);
+      if (myInput.value) {
+          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+      }
+  });
+
+  //user is "finished typing," do something
+  function doneTyping () {
+    var q = myInput.value;
+    if (q == last) {
+      return; // do not re-run completion
+    }
+    last = myInput.value;
+    // https://a3nm.net/work/teaching/2022-2023/bgd709/javascript/examples/ajax_json.html
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState === 4) { // est-ce prêt ?
+        if (req.status === 200) { // est-ce bon ?
+          var json = JSON.parse(req.responseText);
+          var autocomp = document.getElementById('autocomp');
+          autocomp.innerHTML = ''; // clear elements
+          for (let r of json) {
+            // https://gomakethings.com/creating-an-ajax-autocomplete-component-with-html-and-vanilla-js/
+            let option = document.createElement('option');
+            option.textContent = r.value;
+            autocomp.append(option);
+          }
+        }
+      }
+    }
+    req.open("GET", autocompleteUrl + "&term=" + encodeURIComponent(q), true);
+    // peut fournir du contenu en POST (à encoder soi-même)
+    req.send(null);
+  }
+});
+    </script>
+  </head>
+  <body>
+    <h1><a href="/">Moteur de recherche mathématiques</a></h1>
+    {% block body %}
+    <form id="searchform" action="/search" method="get">
+      <input type="text" id="q" name="q" list="autocomp"
+          placeholder="Your search goes here..."></input>
+      <datalist id="autocomp"></datalist>
+      <input id="submit" type="submit"></input>
+    </form>
+
+    {% if history | length > 0 %}
+    <ul id="history">
+      {% for item in history %}
+      <li>{{ item[0] | escape }}: clicked "<a href="{{ item[2] | escape }}">{{
+          item[1] | escape }}</a>" when searching "{{ item[3] | escape }}"
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endblock %}
+  </body>
+</html>

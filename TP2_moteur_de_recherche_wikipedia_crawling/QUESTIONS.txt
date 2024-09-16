@@ -1,0 +1,13 @@
+###### Partie 1.
+En ce qui concerne la première extraction (petite), il y a 415 pages indexées. Il y en a seulement 332 qui ont la même URL requêtée et répondue.
+
+En ce qui concene la grande extraction, il y a 8643 pages indexées. Parmi elles, 8547 pages ont la même URL requêtée et répondue.
+
+###### Partie 2.
+
+### 2.1
+La page dans laquelle apparaît le plus souvent (en fréquence) le terme 'température' est : 'https://wiki.jachiet.com/wikipedia_fr_climate_change_mini/A/R%C3%A9chauffement_climatique' apprès avoir trié les résultats dans l'ordre décroissant de fréquence et récupéré le premier résultat.
+
+Et pou le terme 'soleil' : 'https://wiki.jachiet.com/wikipedia_fr_climate_change_mini/A/%C3%89nergie_solaire'
+
+### 2.2

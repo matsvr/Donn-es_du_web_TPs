@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block body %}
+<p>Results for query "{{ q | escape }}":</p>
+{% if results | length == 0 %}
+  <p>No results!</p>
+{% else %}
+  <ul id="results">
+    {% for result in results %}
+    <li class="result">
+      {% if result.img is defined %}
+      <img class="thumbnail" src="{{ result.img }}" />
+      {% endif %} 
+      <a href="{{result.url }}">{{ result.title }}</a><br/><span class="url">{{
+        result.url }}</span>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

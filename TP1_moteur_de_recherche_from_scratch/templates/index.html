@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <title>Moteur de recherche mathématiques</title>
+</head>
+
+<body>
+  {% block body %}
+  <h1>Searching Machine</h1>
+  <p>Bonjour, monde ! {{ count }} page(s) dans la base de données</p>
+  <form action="/search" method="GET">
+    <label for="search">Rechercher :</label>
+    <input type="text" id="search" name="q">
+    <button type="submit">Lancer la recherche</button>
+  </form>
+  {% endblock %}
+</body>
+
+</html>
